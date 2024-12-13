@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/header/Header";
+import ReactQueryProvider from "./query/ReactQueryProvider";
+import { AuthContext } from "./context/AuthContext";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -15,8 +17,12 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <Header />
-                {children}
+                <ReactQueryProvider>
+                    <AuthContext>
+                        <Header />
+                        {children}
+                    </AuthContext>
+                </ReactQueryProvider>
             </body>
         </html>
     );

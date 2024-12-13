@@ -1,22 +1,15 @@
-import React, { JSX, MouseEventHandler } from "react";
+import React, { JSX, MouseEventHandler, ReactNode } from "react";
 
 interface BtnT {
     onClick?: MouseEventHandler<HTMLButtonElement>;
     className?: string;
     title: string;
     type: "button" | "submit" | "reset";
-    leftIcon?: JSX.Element;
-    rightIcon?: JSX.Element;
+    leftIcon?: ReactNode;
+    rightIcon?: ReactNode;
 }
 
-const Button: React.FC<BtnT> = ({
-    onClick,
-    className,
-    type,
-    leftIcon,
-    rightIcon,
-    title,
-}) => {
+const Button: React.FC<BtnT> = ({ onClick, className, type, leftIcon, rightIcon, title }) => {
     return (
         <button
             onClick={onClick}

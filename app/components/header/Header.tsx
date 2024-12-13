@@ -6,21 +6,27 @@ import Link from "next/link";
 import Button from "../button/Button";
 import { usePathname } from "next/navigation";
 import Modal from "../modal/Modal";
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import RegisterForm from "../registerForm/RegisterForm";
 import { instance } from "@/app/hook/instance";
 import VerifyForm from "../verifyForm/VerifyForm";
 import LoginForm from "../loginForm/LoginForm";
 import ResetPassForm from "../reserPassForm/ResetPassForm";
 import ForgotPassForm from "../forgotPassForm/ForgotPassForm";
+import { Context } from "@/app/context/AuthContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Header = () => {
+
+    const queryClient  = useQueryClient()
     const id = usePathname();
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isLogin, setIsLogin] = useState<
         "login" | "register" | "verify" | "reset-pass" | "forgot"
     >("login");
     const [emailProp, setEmailProp] = useState<string>("");
+
+    const { setToken } = useContext(Context);
 
     function formSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -72,11 +78,9 @@ const Header = () => {
             instance()
                 .post("/login", data)
                 .then(res => {
-                    localStorage.setItem(
-                        "token",
-                        JSON.stringify(res.data.access_token)
-                    );
+                    setToken(res.data.access_token);
                     setIsOpen(false);
+                    queryClient.invalidateQueries({queryKey:["products"]})
                 });
         } else if (isLogin == "reset-pass") {
             const data = {
@@ -108,19 +112,21 @@ const Header = () => {
     }
 
     return (
-        <header className=" ">
+        <header className="sticky top-0 left-0 right-0 bg-white z-[9999999]">
             <Container>
                 <div className="flex items-center justify-between border-b-[0.5px] border-[#46A35880] pt-[25px] pb-[25px]">
                     <div className="">
-                        <Image
-                            priority
-                            style={{ width: "150px", height: "35px" }}
-                            src={"/logo.svg"}
-                            alt="Green Shop"
-                            width={150}
-                            height={35}
-                            className="w-[150px] h-[35px]"
-                        />
+                        <Link href={"/"}>
+                            <Image
+                                priority
+                                style={{ width: "150px", height: "35px" }}
+                                src={"/logo.svg"}
+                                alt="Green Shop"
+                                width={150}
+                                height={35}
+                                className="w-[150px] h-[35px]"
+                            />
+                        </Link>
                     </div>
                     <nav className="">
                         <ul className="relative flex gap-[45px]">

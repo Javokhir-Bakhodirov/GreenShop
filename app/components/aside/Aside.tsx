@@ -1,8 +1,7 @@
 "use client";
 import { CategoryType } from "@/app/service/getCategories";
-import React, { SetStateAction, useState } from "react";
+import React, { SetStateAction } from "react";
 import { Slider } from "@nextui-org/react";
-import Image from "next/image";
 
 interface AsidePropsType {
     categories: CategoryType[];
@@ -10,7 +9,7 @@ interface AsidePropsType {
     setCategory: React.Dispatch<SetStateAction<string | null>>;
     category: string | null;
     value: number[] | number;
-    setValue: React.Dispatch<SetStateAction<number | number[]>>;
+    setValue: React.Dispatch<SetStateAction<number[]>>;
     setSize: React.Dispatch<SetStateAction<string | null>>;
     size: string | null;
 }

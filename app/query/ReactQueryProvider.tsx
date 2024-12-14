@@ -13,7 +13,7 @@ const ReactQueryProvider = ({ children }: { children: React.ReactNode }) => {
                         refetchOnWindowFocus: true,
                         staleTime: 1000 * 60 * 10,
 
-                        // @ts-expect-error
+                        // @ts-ignore
                         cacheTime: 1000 * 60 * 5,
                     },
                 },

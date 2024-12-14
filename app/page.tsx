@@ -9,7 +9,7 @@ import Aside from "./components/aside/Aside";
 import { useState } from "react";
 import Products from "./components/products/Products";
 import { getProducts } from "./service/getProducts";
-import debounce from "./hook/debounce";
+import Debounce from "./hook/debounce";
 import Banner from "./components/banner/Banner";
 import BannerImage from "@/public/plant.png";
 import { blogInfo, BlogInfoType } from "./db/db";
@@ -20,8 +20,8 @@ export default function Home() {
     const [limit, setLimit] = useState<number>(10);
     const [category, setCategory] = useState<string | null>(null);
     const [tags, setTags] = useState<string | null>(null);
-    const [value, setValue] = useState<number[] | number>([0, 1230]);
-    const fullPrice = debounce(value, 1000);
+    const [value, setValue] = useState<number[]>([0, 1230]);
+    const fullPrice = Debounce(value, 1000);
     const [size, setSize] = useState<string | null>(null);
 
     const products = getProducts(category, page, setLimit, tags, fullPrice, size);

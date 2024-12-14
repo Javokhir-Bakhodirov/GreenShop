@@ -8,7 +8,7 @@ export interface CategoryType {
     category_name: string;
 }
 
-export const getCategories = () => {
+export const GetCategories = () => {
     const params: { page: number; limit: number } = { page: 1, limit: 100 };
     const { data = [] } = useQuery({
         queryKey: ["categories"],

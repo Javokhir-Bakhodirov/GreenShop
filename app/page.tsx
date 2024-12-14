@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { CategoryType, getCategories } from "./service/getCategories";
+import { CategoryType, GetCategories } from "./service/getCategories";
 import Container from "./utils";
 import { ArrowIcon } from "@/public/icons";
 import Image from "next/image";
@@ -8,14 +8,14 @@ import Button from "./components/button/Button";
 import Aside from "./components/aside/Aside";
 import { useState } from "react";
 import Products from "./components/products/Products";
-import { getProducts } from "./service/getProducts";
+import { GetProducts } from "./service/getProducts";
 import Debounce from "./hook/debounce";
 import Banner from "./components/banner/Banner";
 import BannerImage from "@/public/plant.png";
 import { blogInfo, BlogInfoType } from "./db/db";
 
 export default function Home() {
-    const categories: CategoryType[] = getCategories();
+    const categories: CategoryType[] = GetCategories();
     const [page, setPage] = useState<number>(1);
     const [limit, setLimit] = useState<number>(10);
     const [category, setCategory] = useState<string | null>(null);
@@ -24,7 +24,7 @@ export default function Home() {
     const fullPrice = Debounce(value, 1000);
     const [size, setSize] = useState<string | null>(null);
 
-    const products = getProducts(category, page, setLimit, tags, fullPrice, size);
+    const products = GetProducts(category, page, setLimit, tags, fullPrice, size);
 
     return (
         <>

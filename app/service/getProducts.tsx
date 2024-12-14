@@ -23,7 +23,7 @@ export interface ProductType {
     tags: string[];
 }
 
-export const getProducts = (
+export const GetProducts = (
     category: string | null,
     page: number,
     setLimit: React.Dispatch<SetStateAction<number>>,

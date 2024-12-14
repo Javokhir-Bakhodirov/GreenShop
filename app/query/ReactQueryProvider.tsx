@@ -12,8 +12,7 @@ const ReactQueryProvider = ({ children }: { children: React.ReactNode }) => {
                         retry: 1,
                         refetchOnWindowFocus: true,
                         staleTime: 1000 * 60 * 10,
-
-                        // @ts-ignore
+                        // @ts-expect-error: Custom type mismatch that doesn't affect runtime behavior
                         cacheTime: 1000 * 60 * 5,
                     },
                 },

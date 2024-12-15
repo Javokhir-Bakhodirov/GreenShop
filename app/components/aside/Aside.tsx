@@ -1,5 +1,5 @@
 "use client";
-import { CategoryType } from "@/app/service/getCategories";
+import { CategoryType } from "@/service/getCategories";
 import React, { SetStateAction } from "react";
 import { Slider } from "@nextui-org/react";
 
@@ -34,9 +34,9 @@ const Aside: React.FC<AsidePropsType> = ({
                             (item: CategoryType) => (
                                 <li
                                     key={item.category_id}
-                                    onClick={() =>
-                                        setCategory(item.category_name == "All" ? null : item.category_name)
-                                    }
+                                    onClick={() => {
+                                        setCategory(item.category_name == "All" ? null : item.category_name);
+                                    }}
                                     className={` ${
                                         category == item.category_name ? "text-[#46A358] font-[600]" : ""
                                     }text-[15px] transition-all duration-300 font-[400] leading-[40px] `}>

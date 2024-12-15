@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "./components/header/Header";
 import ReactQueryProvider from "./query/ReactQueryProvider";
 import { AuthContext } from "./context/AuthContext";
+import Footer from "./components/footer/Footer";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -15,12 +16,13 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang='en'>
             <body>
                 <ReactQueryProvider>
                     <AuthContext>
                         <Header />
                         {children}
+                        <Footer />
                     </AuthContext>
                 </ReactQueryProvider>
             </body>

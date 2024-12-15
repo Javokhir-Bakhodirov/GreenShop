@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { CategoryType, GetCategories } from "./service/getCategories";
+import { CategoryType, GetCategories } from "../service/getCategories";
 import Container from "./utils";
 import { ArrowIcon } from "@/public/icons";
 import Image from "next/image";
@@ -8,7 +8,7 @@ import Button from "./components/button/Button";
 import Aside from "./components/aside/Aside";
 import { useState } from "react";
 import Products from "./components/products/Products";
-import { GetProducts } from "./service/getProducts";
+import { GetProducts } from "../service/getProducts";
 import Debounce from "./hook/debounce";
 import Banner from "./components/banner/Banner";
 import BannerImage from "@/public/plant.png";

@@ -13,7 +13,7 @@ const Button: React.FC<BtnT> = ({ onClick, className, type, leftIcon, rightIcon,
     return (
         <button
             onClick={onClick}
-            className={`bg-[#46A358] py-[8px]  px-[17px] text-[#fff] flex items-center gap-[6px] rounded-lg cursor-pointer ${className} `}
+            className={`bg-[#46A358] py-[8px] border-[#46A358] border-[1px] px-[17px] text-[#fff] flex items-center gap-[6px] rounded-lg cursor-pointer ${className} `}
             type={type}>
             {leftIcon}
             {title}

@@ -1,5 +1,5 @@
 "use client";
-import { ProductType } from "@/app/service/getProducts";
+import { ProductType } from "@/service/getProducts";
 import React, { SetStateAction } from "react";
 import ProductCard from "../productCard/ProductCard";
 import { Pagination } from "@nextui-org/react";
@@ -25,8 +25,6 @@ const Products: React.FC<ProductsProps> = ({
     tags,
     category,
 }) => {
-    console.log(products);
-
     return (
         <div className={`w-full  p-[14px_18px] ${className}`}>
             <ul className=' flex gap-[25px]'>

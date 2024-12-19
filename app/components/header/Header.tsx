@@ -1,6 +1,6 @@
 "use client";
 import Container from "@/app/utils";
-import { CartIcon, LoginIcon, SearchIcon } from "@/public/icons";
+import { CartIcon, LoginIcon, ProfileIcon, SearchIcon } from "@/public/icons";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "../button/Button";
@@ -14,7 +14,7 @@ import LoginForm from "../loginForm/LoginForm";
 import ResetPassForm from "../reserPassForm/ResetPassForm";
 import ForgotPassForm from "../forgotPassForm/ForgotPassForm";
 import { Context } from "@/app/context/AuthContext";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const Header = () => {
     const queryClient = useQueryClient();
@@ -24,7 +24,7 @@ const Header = () => {
         "login"
     );
     const [emailProp, setEmailProp] = useState<string>("");
-    const { setToken } = useContext(Context);
+    const { setToken, token } = useContext(Context);
 
     function formSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -106,10 +106,32 @@ const Header = () => {
         }
     }
 
+    const getBasketList = async () => {
+        return await instance()
+            .get("/basket", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                params: {
+                    page: 1,
+                    limit: 1000,
+                },
+            })
+            .then(res => {
+                return res.data;
+            });
+    };
+
+    const { data: basketList = [] } = useQuery({
+        queryKey: ["basket_list"],
+        queryFn: () => (token ? getBasketList() : Promise.resolve([])),
+        enabled: true,
+    });
+
     return (
         <header className='sticky top-0 left-0 right-0 bg-white z-[9999999]'>
             <Container>
-                <div className='flex items-center justify-between border-b-[0.5px] border-[#46A35880] pt-[25px] pb-[25px]'>
+                <div className='flex items-center justify-between border-b-[0.5px] border-[#46A35880] pt-[25px] pb-[24px]'>
                     <div className=''>
                         <Link href={"/"}>
                             <Image
@@ -179,18 +201,30 @@ const Header = () => {
                         <Link href={"/"}>
                             <SearchIcon />
                         </Link>
-                        <Link className='relative' href={"/"}>
-                            <span className='absolute top-0 -right-[5px] h-[14px] w-[14px] rounded-full bg-[#46A358] text-[#fff] text-[10px] border-[1px] border-[#fff] flex items-center justify-center'>
-                                5
-                            </span>
+                        <Link className='relative' href={"/shop/cart"}>
+                            {basketList.TotalCount > 0 && (
+                                <span className='absolute top-0 -right-[5px] h-[14px] w-[14px] rounded-full bg-[#46A358] text-[#fff] text-[10px] border-[1px] border-[#fff] flex items-center justify-center'>
+                                    {basketList.TotalCount > 9 ? "9+" : basketList.TotalCount}
+                                </span>
+                            )}
+
                             <CartIcon />
                         </Link>
-                        <Button
-                            onClick={() => setIsOpen(true)}
-                            title={"Login"}
-                            leftIcon={<LoginIcon />}
-                            type='button'
-                        />
+                        {!token ? (
+                            <Button
+                                onClick={() => setIsOpen(true)}
+                                title={"Login"}
+                                leftIcon={<LoginIcon />}
+                                type='button'
+                            />
+                        ) : (
+                            <Button
+                                title={"Profile"}
+                                leftIcon={<ProfileIcon />}
+                                type='button'
+                                className='!justify-center !items-center'
+                            />
+                        )}
                         <Modal setIsOpen={setIsOpen} isOpen={isOpen}>
                             <ul className='flex gap-[16px] justify-center mb-[53px]'>
                                 <li
@@ -214,8 +248,8 @@ const Header = () => {
                                 {isLogin === "login" && <LoginForm setIsLogin={setIsLogin} />}
                                 {isLogin === "register" && <RegisterForm />}
                                 {isLogin === "verify" && <VerifyForm />}
-                                {isLogin == "reset-pass" && <ResetPassForm />}
-                                {isLogin == "forgot" && <ForgotPassForm />}
+                                {isLogin === "reset-pass" && <ResetPassForm />}
+                                {isLogin === "forgot" && <ForgotPassForm />}
                             </form>
                         </Modal>
                     </div>

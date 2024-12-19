@@ -1,11 +1,12 @@
 "use client";
 import { Context } from "@/app/context/AuthContext";
 import { instance } from "@/app/hook/instance";
-import { ProductType } from "@/app/service/getProducts";
+import { ProductType } from "@/service/getProducts";
 import { CartIcon, HeartIcon, SearchIcon } from "@/public/icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import React, { useContext } from "react";
+import Link from "next/link";
 
 interface CardProps {
     item: ProductType;
@@ -31,6 +32,7 @@ const ProductCard: React.FC<CardProps> = ({ item }) => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["products"] });
+            queryClient.invalidateQueries({ queryKey: ["getSingleProduct"] });
         },
         onError: error => {
             console.error(error);
@@ -50,6 +52,8 @@ const ProductCard: React.FC<CardProps> = ({ item }) => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["products"] });
+            queryClient.invalidateQueries({ queryKey: ["basket_list"] });
+            queryClient.invalidateQueries({ queryKey: ["getSingleProduct"] });
         },
         onError: error => {
             console.error(error);
@@ -105,11 +109,12 @@ const ProductCard: React.FC<CardProps> = ({ item }) => {
                         aria-label='Add to Cart'>
                         <CartIcon />
                     </button>
-                    <button
+                    <Link
+                        href={`/shop/${item.product_id}`}
                         className='w-[35px] h-[35px] bg-[#fff] flex items-center rounded-lg justify-center text-gray-600 hover:text-[#3b5fa1]'
                         aria-label='View Details'>
                         <SearchIcon />
-                    </button>
+                    </Link>
                 </div>
             </div>
             <div>

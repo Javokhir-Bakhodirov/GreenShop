@@ -14,7 +14,7 @@ const Banner: React.FC<BannerType> = ({ img, title, description, btnIcon, btnTit
     return (
         <div className='w-[686px] h-[250px] bg-[#FBFBFB] p-[45px_36px] relative'>
             <div className='flex flex-col gap-6  items-end '>
-                <h2 className='text-[20px] font-[700] leading-6  w-[50%] flex items-end text-end  uppercase'>
+                <h2 className='text-[20px] font-[800] leading-6  w-[50%] flex items-end text-end  uppercase'>
                     {title}
                 </h2>
                 <p className='text-[#727272] text-[14px] font-[400] w-[60%] flex items-end text-end leading-[22px]'>

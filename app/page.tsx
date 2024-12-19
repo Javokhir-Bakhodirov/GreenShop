@@ -13,6 +13,11 @@ import Debounce from "./hook/debounce";
 import Banner from "./components/banner/Banner";
 import BannerImage from "@/public/plant.png";
 import { blogInfo, BlogInfoType } from "./db/db";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Pagination } from "swiper/modules";
 
 export default function Home() {
     const categories: CategoryType[] = GetCategories();
@@ -30,63 +35,197 @@ export default function Home() {
         <>
             <section className='hero md:py-[55px]'>
                 <Container>
-                    <div className='w-full lg:pt-[58px] lg:pb-[74px]  lg:pr-[25px]  p-6 md:p-[23px_0px_24px_50px] lg:p-[13px_105px_24px_67px] rounded-2xl overflow-hidden  bg-[#46a35930] lg:bg-[#F5F5F580]'>
-                        <div className='md:flex md:items-center md:justify-between relative'>
-                            <div className='content w-[215px] md:w-[382px] lg:w-[552px] flex flex-col gap-2 md:gap-3'>
-                                <h1 className='uppercase lg:leading-[60px] flex flex-col text-[11px] md:text-[14px] lg:text-[16px] font-[500] leading-4 md:leading-[45px]'>
-                                    Welcome to GreenShop
-                                    <span className='text-[24px] md:text-[40px] lg:text-[54px] md:leading-[40px] font-[900] lg:leading-[70px] leading-[29px]'>
-                                        Lets make a <span className='text-[#46A358]'>better planet</span>
-                                    </span>
-                                </h1>
-                                <p className='text-[#727272] lg:hidden text-[12px] md:text-[14px] lg:text-[16px] font-[400] leading-[18px] md:leading-[20px]'>
-                                    We are an online plant shop offering a wide range
-                                </p>
-                                <p className='text-[#727272] hidden lg:flex text-[12px] md:text-[14px] lg:text-[16px] font-[400] leading-[18px] md:leading-[20px]'>
-                                    We are an online plant shop offering a wide range of cheap and trendy
-                                    plants. Use our plants to create an unique Urban Jungle. Order your
-                                    favorite plants!
-                                </p>
-                                <Link
-                                    href={"/shop"}
-                                    className='flex lg:hidden uppercase mt-[10px] text-[#46A358] items-center gap-[8px] text-[12px] md:text-[14px] lg:text-[16px]'>
-                                    shop now <ArrowIcon />
-                                </Link>
+                    <div className='w-full lg:pt-[58px] lg:pb-[74px]  lg:pr-[25px]  p-6 md:p-[23px_50px_24px_50px] lg:p-[13px_105px_24px_67px] rounded-2xl overflow-hidden  bg-[#46a35930] lg:bg-[#F5F5F580]'>
+                        <Swiper
+                            modules={[Pagination]}
+                            spaceBetween={20}
+                            slidesPerView={5}
+                            pagination={{ clickable: true }}
+                            breakpoints={{
+                                320: { slidesPerView: 1 },
+                                640: { slidesPerView: 1 },
+                                768: { slidesPerView: 1 },
+                                1024: { slidesPerView: 1 },
+                            }}
+                            style={{ position: "relative" }}>
+                            <SwiperSlide>
+                                <div className='md:flex md:items-center md:justify-between relative'>
+                                    <div className='content w-[215px] md:w-[382px] lg:w-[552px] flex flex-col gap-2 md:gap-3'>
+                                        <h1 className='uppercase lg:leading-[60px] flex flex-col lg:font-[700] text-[11px] md:text-[14px] lg:text-[16px] font-[500] leading-4 md:leading-[45px]'>
+                                            Welcome to GreenShop
+                                            <span className='text-[24px] md:text-[40px] lg:text-[54px] md:leading-[40px] font-[900] lg:leading-[70px] leading-[29px]'>
+                                                Lets make a{" "}
+                                                <span className='text-[#46A358]'>better planet</span>
+                                            </span>
+                                        </h1>
+                                        <p className='text-[#727272] lg:hidden text-[12px] md:text-[14px] lg:text-[16px] font-[400] leading-[18px] md:leading-[20px]'>
+                                            We are an online plant shop offering a wide range
+                                        </p>
+                                        <p className='text-[#727272] hidden lg:flex text-[12px] md:text-[14px] lg:text-[16px] font-[400] leading-[18px] md:leading-[20px]'>
+                                            We are an online plant shop offering a wide range of cheap and
+                                            trendy plants. Use our plants to create an unique Urban Jungle.
+                                            Order your favorite plants!
+                                        </p>
+                                        <Link
+                                            href={"/shop"}
+                                            className='flex lg:hidden uppercase mt-[10px] text-[#46A358] items-center gap-[8px] text-[12px] md:text-[14px] lg:text-[16px]'>
+                                            shop now <ArrowIcon />
+                                        </Link>
 
-                                <Button
-                                    type='button'
-                                    title={"SHOP NOW"}
-                                    className='max-w-[130px] mt-[35px] !text-center hidden lg:flex'
-                                />
-                                <div className='relative'></div>
-                                <Image
-                                    src={"/plant.png"}
-                                    width={143}
-                                    height={183}
-                                    style={{ width: "143px", height: "183px" }}
-                                    alt='plant'
-                                    priority
-                                    className='absolute  md:hidden -top-[22px] max-sm:right-[-40px] right-0 w-[100px] md:w-[120px] lg:w-[143px]'
-                                />
-                                <Image
-                                    src={"/plamt-2.png"}
-                                    width={73}
-                                    height={93}
-                                    style={{ width: "73px", height: "93px" }}
-                                    alt='plant'
-                                    priority
-                                    className='absolute  md:hidden max-sm:right-[40px] top-[60px] right-[80px] md:right-[50px] lg:right-[70px] w-[50px] md:w-[60px] lg:w-[73px]'
-                                />
-                            </div>
-                            <Image
-                                src={"/plant.png"}
-                                alt='plant'
-                                priority
-                                width={500}
-                                height={500}
-                                className='hidden md:flex md:w-[350px] md:h-[350px] lg:w-[500px] lg:h-[500px]'
-                            />
-                        </div>
+                                        <Button
+                                            type='button'
+                                            title={"SHOP NOW"}
+                                            className='max-w-[130px] mt-[35px] !text-center hidden lg:flex'
+                                        />
+                                        <div className='relative'></div>
+                                        <Image
+                                            src={"/plant.png"}
+                                            width={143}
+                                            height={183}
+                                            style={{ width: "143px", height: "183px" }}
+                                            alt='plant'
+                                            priority
+                                            className='absolute  md:hidden -top-[22px] max-sm:right-[-40px] right-0 w-[100px] md:w-[120px] lg:w-[143px]'
+                                        />
+                                        <Image
+                                            src={"/plamt-2.png"}
+                                            width={73}
+                                            height={93}
+                                            style={{ width: "73px", height: "93px" }}
+                                            alt='plant'
+                                            priority
+                                            className='absolute  md:hidden max-sm:right-[40px] top-[60px] right-[80px] md:right-[50px] lg:right-[70px] w-[50px] md:w-[60px] lg:w-[73px]'
+                                        />
+                                    </div>
+                                    <Image
+                                        src={"/plant.png"}
+                                        alt='plant'
+                                        priority
+                                        width={500}
+                                        height={500}
+                                        className='hidden md:flex md:w-[350px] md:h-[350px] lg:w-[500px] lg:h-[500px]'
+                                    />
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <div className='md:flex md:items-center md:justify-between relative'>
+                                    <div className='content w-[215px] md:w-[382px] lg:w-[552px] flex flex-col gap-2 md:gap-3'>
+                                        <h1 className='uppercase lg:leading-[60px] flex flex-col lg:font-[700] text-[11px] md:text-[14px] lg:text-[16px] font-[500] leading-4 md:leading-[45px]'>
+                                            Welcome to GreenShop
+                                            <span className='text-[24px] md:text-[40px] lg:text-[54px] md:leading-[40px] font-[900] lg:leading-[70px] leading-[29px]'>
+                                                Lets make a{" "}
+                                                <span className='text-[#46A358]'>better planet</span>
+                                            </span>
+                                        </h1>
+                                        <p className='text-[#727272] lg:hidden text-[12px] md:text-[14px] lg:text-[16px] font-[400] leading-[18px] md:leading-[20px]'>
+                                            We are an online plant shop offering a wide range
+                                        </p>
+                                        <p className='text-[#727272] hidden lg:flex text-[12px] md:text-[14px] lg:text-[16px] font-[400] leading-[18px] md:leading-[20px]'>
+                                            We are an online plant shop offering a wide range of cheap and
+                                            trendy plants. Use our plants to create an unique Urban Jungle.
+                                            Order your favorite plants!
+                                        </p>
+                                        <Link
+                                            href={"/shop"}
+                                            className='flex lg:hidden uppercase mt-[10px] text-[#46A358] items-center gap-[8px] text-[12px] md:text-[14px] lg:text-[16px]'>
+                                            shop now <ArrowIcon />
+                                        </Link>
+
+                                        <Button
+                                            type='button'
+                                            title={"SHOP NOW"}
+                                            className='max-w-[130px] mt-[35px] !text-center hidden lg:flex'
+                                        />
+                                        <div className='relative'></div>
+                                        <Image
+                                            src={"/plant.png"}
+                                            width={143}
+                                            height={183}
+                                            style={{ width: "143px", height: "183px" }}
+                                            alt='plant'
+                                            priority
+                                            className='absolute  md:hidden -top-[22px] max-sm:right-[-40px] right-0 w-[100px] md:w-[120px] lg:w-[143px]'
+                                        />
+                                        <Image
+                                            src={"/plamt-2.png"}
+                                            width={73}
+                                            height={93}
+                                            style={{ width: "73px", height: "93px" }}
+                                            alt='plant'
+                                            priority
+                                            className='absolute  md:hidden max-sm:right-[40px] top-[60px] right-[80px] md:right-[50px] lg:right-[70px] w-[50px] md:w-[60px] lg:w-[73px]'
+                                        />
+                                    </div>
+                                    <Image
+                                        src={"/plant.png"}
+                                        alt='plant'
+                                        priority
+                                        width={500}
+                                        height={500}
+                                        className='hidden md:flex md:w-[350px] md:h-[350px] lg:w-[500px] lg:h-[500px]'
+                                    />
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <div className='md:flex md:items-center md:justify-between relative'>
+                                    <div className='content w-[215px] md:w-[382px] lg:w-[552px] flex flex-col gap-2 md:gap-3'>
+                                        <h1 className='uppercase lg:leading-[60px] flex flex-col lg:font-[700] text-[11px] md:text-[14px] lg:text-[16px] font-[500] leading-4 md:leading-[45px]'>
+                                            Welcome to GreenShop
+                                            <span className='text-[24px] md:text-[40px] lg:text-[54px] md:leading-[40px] font-[900] lg:leading-[70px] leading-[29px]'>
+                                                Lets make a{" "}
+                                                <span className='text-[#46A358]'>better planet</span>
+                                            </span>
+                                        </h1>
+                                        <p className='text-[#727272] lg:hidden text-[12px] md:text-[14px] lg:text-[16px] font-[400] leading-[18px] md:leading-[20px]'>
+                                            We are an online plant shop offering a wide range
+                                        </p>
+                                        <p className='text-[#727272] hidden lg:flex text-[12px] md:text-[14px] lg:text-[16px] font-[400] leading-[18px] md:leading-[20px]'>
+                                            We are an online plant shop offering a wide range of cheap and
+                                            trendy plants. Use our plants to create an unique Urban Jungle.
+                                            Order your favorite plants!
+                                        </p>
+                                        <Link
+                                            href={"/shop"}
+                                            className='flex lg:hidden uppercase mt-[10px] text-[#46A358] items-center gap-[8px] text-[12px] md:text-[14px] lg:text-[16px]'>
+                                            shop now <ArrowIcon />
+                                        </Link>
+
+                                        <Button
+                                            type='button'
+                                            title={"SHOP NOW"}
+                                            className='max-w-[130px] mt-[35px] !text-center hidden lg:flex'
+                                        />
+                                        <div className='relative'></div>
+                                        <Image
+                                            src={"/plant.png"}
+                                            width={143}
+                                            height={183}
+                                            style={{ width: "143px", height: "183px" }}
+                                            alt='plant'
+                                            priority
+                                            className='absolute  md:hidden -top-[22px] max-sm:right-[-40px] right-0 w-[100px] md:w-[120px] lg:w-[143px]'
+                                        />
+                                        <Image
+                                            src={"/plamt-2.png"}
+                                            width={73}
+                                            height={93}
+                                            style={{ width: "73px", height: "93px" }}
+                                            alt='plant'
+                                            priority
+                                            className='absolute  md:hidden max-sm:right-[40px] top-[60px] right-[80px] md:right-[50px] lg:right-[70px] w-[50px] md:w-[60px] lg:w-[73px]'
+                                        />
+                                    </div>
+                                    <Image
+                                        src={"/plant.png"}
+                                        alt='plant'
+                                        priority
+                                        width={500}
+                                        height={500}
+                                        className='hidden md:flex md:w-[350px] md:h-[350px] lg:w-[500px] lg:h-[500px]'
+                                    />
+                                </div>
+                            </SwiperSlide>
+                        </Swiper>
                     </div>
                 </Container>
             </section>

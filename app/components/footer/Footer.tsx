@@ -14,7 +14,7 @@ import {
 import LinkButton from "../button/LinkButton";
 const Footer = () => {
     return (
-        <footer className='footer-section bg-[#FBFBFB]'>
+        <footer className='footer-section bg-[#FBFBFB] mt-[70px]'>
             <Container>
                 <div className='footer-container'>
                     <div className='header'></div>

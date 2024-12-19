@@ -1,5 +1,5 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { instance } from "../app/hook/instance";
 import { SetStateAction, useContext } from "react";
 import { Context } from "../app/context/AuthContext";
@@ -21,6 +21,7 @@ export interface ProductType {
     short_description: string;
     size: ProductSize[];
     tags: string[];
+    quantity?: number;
 }
 
 export const GetProducts = (
@@ -40,6 +41,7 @@ export const GetProducts = (
         max_price: fullPrice[1],
         size,
     };
+
     const { token } = useContext(Context);
     const { data = [] } = useQuery<ProductType[]>({
         queryKey: ["products", category, page, tags, fullPrice, size],
@@ -53,6 +55,7 @@ export const GetProducts = (
                     setLimit(res.data.total_count);
                     return res.data.products;
                 }),
+        placeholderData: keepPreviousData,
     });
 
     return data;
